@@ -28,12 +28,10 @@ export type AggregateToken = {
 
 export type TokenAvgAggregateOutputType = {
   id: number | null
-  userId: number | null
 }
 
 export type TokenSumAggregateOutputType = {
   id: number | null
-  userId: number | null
 }
 
 export type TokenMinAggregateOutputType = {
@@ -41,7 +39,7 @@ export type TokenMinAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   token: string | null
-  userId: number | null
+  userId: string | null
 }
 
 export type TokenMaxAggregateOutputType = {
@@ -49,7 +47,7 @@ export type TokenMaxAggregateOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   token: string | null
-  userId: number | null
+  userId: string | null
 }
 
 export type TokenCountAggregateOutputType = {
@@ -64,12 +62,10 @@ export type TokenCountAggregateOutputType = {
 
 export type TokenAvgAggregateInputType = {
   id?: true
-  userId?: true
 }
 
 export type TokenSumAggregateInputType = {
   id?: true
-  userId?: true
 }
 
 export type TokenMinAggregateInputType = {
@@ -188,7 +184,7 @@ export type TokenGroupByOutputType = {
   createdAt: Date | null
   updatedAt: Date | null
   token: string
-  userId: number
+  userId: string
   _count: TokenCountAggregateOutputType | null
   _avg: TokenAvgAggregateOutputType | null
   _sum: TokenSumAggregateOutputType | null
@@ -219,7 +215,7 @@ export type TokenWhereInput = {
   createdAt?: Prisma.DateTimeNullableFilter<"Token"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Token"> | Date | string | null
   token?: Prisma.StringFilter<"Token"> | string
-  userId?: Prisma.IntFilter<"Token"> | number
+  userId?: Prisma.StringFilter<"Token"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -241,7 +237,7 @@ export type TokenWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeNullableFilter<"Token"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Token"> | Date | string | null
   token?: Prisma.StringFilter<"Token"> | string
-  userId?: Prisma.IntFilter<"Token"> | number
+  userId?: Prisma.StringFilter<"Token"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -266,7 +262,7 @@ export type TokenScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Token"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Token"> | Date | string | null
   token?: Prisma.StringWithAggregatesFilter<"Token"> | string
-  userId?: Prisma.IntWithAggregatesFilter<"Token"> | number
+  userId?: Prisma.StringWithAggregatesFilter<"Token"> | string
 }
 
 export type TokenCreateInput = {
@@ -281,7 +277,7 @@ export type TokenUncheckedCreateInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   token: string
-  userId: number
+  userId: string
 }
 
 export type TokenUpdateInput = {
@@ -296,7 +292,7 @@ export type TokenUncheckedUpdateInput = {
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   token?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TokenCreateManyInput = {
@@ -304,7 +300,7 @@ export type TokenCreateManyInput = {
   createdAt?: Date | string | null
   updatedAt?: Date | string | null
   token: string
-  userId: number
+  userId: string
 }
 
 export type TokenUpdateManyMutationInput = {
@@ -318,7 +314,7 @@ export type TokenUncheckedUpdateManyInput = {
   createdAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   token?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.IntFieldUpdateOperationsInput | number
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TokenOrderByRelevanceInput = {
@@ -337,7 +333,6 @@ export type TokenCountOrderByAggregateInput = {
 
 export type TokenAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type TokenMaxOrderByAggregateInput = {
@@ -358,7 +353,6 @@ export type TokenMinOrderByAggregateInput = {
 
 export type TokenSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
 }
 
 export type TokenListRelationFilter = {
@@ -476,7 +470,7 @@ export type TokenScalarWhereInput = {
   createdAt?: Prisma.DateTimeNullableFilter<"Token"> | Date | string | null
   updatedAt?: Prisma.DateTimeNullableFilter<"Token"> | Date | string | null
   token?: Prisma.StringFilter<"Token"> | string
-  userId?: Prisma.IntFilter<"Token"> | number
+  userId?: Prisma.StringFilter<"Token"> | string
 }
 
 export type TokenCreateManyUserInput = {
@@ -542,7 +536,7 @@ export type $TokenPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     createdAt: Date | null
     updatedAt: Date | null
     token: string
-    userId: number
+    userId: string
   }, ExtArgs["result"]["token"]>
   composites: {}
 }
@@ -917,7 +911,7 @@ export interface TokenFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Token", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Token", 'DateTime'>
   readonly token: Prisma.FieldRef<"Token", 'String'>
-  readonly userId: Prisma.FieldRef<"Token", 'Int'>
+  readonly userId: Prisma.FieldRef<"Token", 'String'>
 }
     
 

@@ -15,31 +15,52 @@ model Token {
 
   token String @db.VarChar(3000)
 
-  userId Int  @map("user_id")
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade, map: "fk_users_tokens")
+  userId String  @map("user_id")
+  user   User @relation(fields: [userId], references: [uuid], onDelete: Cascade, map: "fk_users_tokens")
 
   @@index([userId], map: "fk_tokens_users1_idx")
   @@map("tokens")
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  uuid String @id @unique @default(uuid())
 
   createdAt DateTime  @default(now()) @map("create_time") @db.Timestamp(0)
   updatedAt DateTime? @map("update_time") @db.Timestamp(0)
 
   name     String @db.VarChar(100)
   email    String @unique(map: "email_UNIQUE") @db.VarChar(300)
-  password String @db.VarChar(300)
+
+  payment Float   @default(100)
+  lastPayment DateTime? @map("last_payment") @db.Timestamp(0)
+
+  active  Boolean @default(false)
 
   role Role @default(USER)
 
   tokens Token[]
+  payments Payment[]
 
   @@map("users")
+}
+
+model Payment {
+  id Int @id @default(autoincrement())
+
+  value   Float
+  status  PaymentStatus
+
+  userId String
+  user   User @relation(fields: [userId], references: [uuid], onDelete: NoAction)
 }
 
 enum Role {
   USER
   ADMIN
+}
+
+enum PaymentStatus {
+  EXPIRED
+  SUCCESS
+  FAILED
 }

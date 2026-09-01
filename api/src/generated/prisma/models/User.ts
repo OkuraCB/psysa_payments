@@ -27,80 +27,92 @@ export type AggregateUser = {
 }
 
 export type UserAvgAggregateOutputType = {
-  id: number | null
+  payment: number | null
 }
 
 export type UserSumAggregateOutputType = {
-  id: number | null
+  payment: number | null
 }
 
 export type UserMinAggregateOutputType = {
-  id: number | null
+  uuid: string | null
   createdAt: Date | null
   updatedAt: Date | null
   name: string | null
   email: string | null
-  password: string | null
+  payment: number | null
+  lastPayment: Date | null
+  active: boolean | null
   role: $Enums.Role | null
 }
 
 export type UserMaxAggregateOutputType = {
-  id: number | null
+  uuid: string | null
   createdAt: Date | null
   updatedAt: Date | null
   name: string | null
   email: string | null
-  password: string | null
+  payment: number | null
+  lastPayment: Date | null
+  active: boolean | null
   role: $Enums.Role | null
 }
 
 export type UserCountAggregateOutputType = {
-  id: number
+  uuid: number
   createdAt: number
   updatedAt: number
   name: number
   email: number
-  password: number
+  payment: number
+  lastPayment: number
+  active: number
   role: number
   _all: number
 }
 
 
 export type UserAvgAggregateInputType = {
-  id?: true
+  payment?: true
 }
 
 export type UserSumAggregateInputType = {
-  id?: true
+  payment?: true
 }
 
 export type UserMinAggregateInputType = {
-  id?: true
+  uuid?: true
   createdAt?: true
   updatedAt?: true
   name?: true
   email?: true
-  password?: true
+  payment?: true
+  lastPayment?: true
+  active?: true
   role?: true
 }
 
 export type UserMaxAggregateInputType = {
-  id?: true
+  uuid?: true
   createdAt?: true
   updatedAt?: true
   name?: true
   email?: true
-  password?: true
+  payment?: true
+  lastPayment?: true
+  active?: true
   role?: true
 }
 
 export type UserCountAggregateInputType = {
-  id?: true
+  uuid?: true
   createdAt?: true
   updatedAt?: true
   name?: true
   email?: true
-  password?: true
+  payment?: true
+  lastPayment?: true
+  active?: true
   role?: true
   _all?: true
 }
@@ -192,12 +204,14 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 export type UserGroupByOutputType = {
-  id: number
+  uuid: string
   createdAt: Date
   updatedAt: Date | null
   name: string
   email: string
-  password: string
+  payment: number
+  lastPayment: Date | null
+  active: boolean
   role: $Enums.Role
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
@@ -225,30 +239,36 @@ export type UserWhereInput = {
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  id?: Prisma.IntFilter<"User"> | number
+  uuid?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  payment?: Prisma.FloatFilter<"User"> | number
+  lastPayment?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  active?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   tokens?: Prisma.TokenListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
+  uuid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  payment?: Prisma.SortOrder
+  lastPayment?: Prisma.SortOrderInput | Prisma.SortOrder
+  active?: Prisma.SortOrder
   role?: Prisma.SortOrder
   tokens?: Prisma.TokenOrderByRelationAggregateInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
   _relevance?: Prisma.UserOrderByRelevanceInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  uuid?: string
   email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
@@ -256,18 +276,23 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   name?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  payment?: Prisma.FloatFilter<"User"> | number
+  lastPayment?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  active?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   tokens?: Prisma.TokenListRelationFilter
-}, "id" | "email">
+  payments?: Prisma.PaymentListRelationFilter
+}, "uuid" | "uuid" | "email">
 
 export type UserOrderByWithAggregationInput = {
-  id?: Prisma.SortOrder
+  uuid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  payment?: Prisma.SortOrder
+  lastPayment?: Prisma.SortOrderInput | Prisma.SortOrder
+  active?: Prisma.SortOrder
   role?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
@@ -280,83 +305,106 @@ export type UserScalarWhereWithAggregatesInput = {
   AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"User"> | number
+  uuid?: Prisma.StringWithAggregatesFilter<"User"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  payment?: Prisma.FloatWithAggregatesFilter<"User"> | number
+  lastPayment?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  active?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
 }
 
 export type UserCreateInput = {
+  uuid?: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
   name: string
   email: string
-  password: string
+  payment?: number
+  lastPayment?: Date | string | null
+  active?: boolean
   role?: $Enums.Role
   tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
-  id?: number
+  uuid?: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
   name: string
   email: string
-  password: string
+  payment?: number
+  lastPayment?: Date | string | null
+  active?: boolean
   role?: $Enums.Role
   tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  payment?: Prisma.FloatFieldUpdateOperationsInput | number
+  lastPayment?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  payment?: Prisma.FloatFieldUpdateOperationsInput | number
+  lastPayment?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
-  id?: number
+  uuid?: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
   name: string
   email: string
-  password: string
+  payment?: number
+  lastPayment?: Date | string | null
+  active?: boolean
   role?: $Enums.Role
 }
 
 export type UserUpdateManyMutationInput = {
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  payment?: Prisma.FloatFieldUpdateOperationsInput | number
+  lastPayment?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
 export type UserUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  payment?: Prisma.FloatFieldUpdateOperationsInput | number
+  lastPayment?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
 }
 
@@ -372,41 +420,47 @@ export type UserOrderByRelevanceInput = {
 }
 
 export type UserCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  uuid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  payment?: Prisma.SortOrder
+  lastPayment?: Prisma.SortOrder
+  active?: Prisma.SortOrder
   role?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  payment?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  uuid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  payment?: Prisma.SortOrder
+  lastPayment?: Prisma.SortOrder
+  active?: Prisma.SortOrder
   role?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  uuid?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  payment?: Prisma.SortOrder
+  lastPayment?: Prisma.SortOrder
+  active?: Prisma.SortOrder
   role?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
+  payment?: Prisma.SortOrder
 }
 
 export type UserCreateNestedOneWithoutTokensInput = {
@@ -427,27 +481,60 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
 
+export type UserCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.UserUpsertWithoutPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
 export type UserCreateWithoutTokensInput = {
+  uuid?: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
   name: string
   email: string
-  password: string
+  payment?: number
+  lastPayment?: Date | string | null
+  active?: boolean
   role?: $Enums.Role
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTokensInput = {
-  id?: number
+  uuid?: string
   createdAt?: Date | string
   updatedAt?: Date | string | null
   name: string
   email: string
-  password: string
+  payment?: number
+  lastPayment?: Date | string | null
+  active?: boolean
   role?: $Enums.Role
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTokensInput = {
@@ -467,22 +554,97 @@ export type UserUpdateToOneWithWhereWithoutTokensInput = {
 }
 
 export type UserUpdateWithoutTokensInput = {
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  payment?: Prisma.FloatFieldUpdateOperationsInput | number
+  lastPayment?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTokensInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  payment?: Prisma.FloatFieldUpdateOperationsInput | number
+  lastPayment?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPaymentsInput = {
+  uuid?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  name: string
+  email: string
+  payment?: number
+  lastPayment?: Date | string | null
+  active?: boolean
+  role?: $Enums.Role
+  tokens?: Prisma.TokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPaymentsInput = {
+  uuid?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string | null
+  name: string
+  email: string
+  payment?: number
+  lastPayment?: Date | string | null
+  active?: boolean
+  role?: $Enums.Role
+  tokens?: Prisma.TokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+}
+
+export type UserUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type UserUpdateWithoutPaymentsInput = {
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  payment?: Prisma.FloatFieldUpdateOperationsInput | number
+  lastPayment?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  tokens?: Prisma.TokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPaymentsInput = {
+  uuid?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  payment?: Prisma.FloatFieldUpdateOperationsInput | number
+  lastPayment?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  tokens?: Prisma.TokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -492,10 +654,12 @@ export type UserUncheckedUpdateWithoutTokensInput = {
 
 export type UserCountOutputType = {
   tokens: number
+  payments: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tokens?: boolean | UserCountOutputTypeCountTokensArgs
+  payments?: boolean | UserCountOutputTypeCountPaymentsArgs
 }
 
 /**
@@ -515,34 +679,47 @@ export type UserCountOutputTypeCountTokensArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.TokenWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
+  uuid?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   name?: boolean
   email?: boolean
-  password?: boolean
+  payment?: boolean
+  lastPayment?: boolean
+  active?: boolean
   role?: boolean
   tokens?: boolean | Prisma.User$tokensArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 
 
 export type UserSelectScalar = {
-  id?: boolean
+  uuid?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   name?: boolean
   email?: boolean
-  password?: boolean
+  payment?: boolean
+  lastPayment?: boolean
+  active?: boolean
   role?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "name" | "email" | "password" | "role", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"uuid" | "createdAt" | "updatedAt" | "name" | "email" | "payment" | "lastPayment" | "active" | "role", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tokens?: boolean | Prisma.User$tokensArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -550,14 +727,17 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     tokens: Prisma.$TokenPayload<ExtArgs>[]
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    uuid: string
     createdAt: Date
     updatedAt: Date | null
     name: string
     email: string
-    password: string
+    payment: number
+    lastPayment: Date | null
+    active: boolean
     role: $Enums.Role
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -642,8 +822,8 @@ export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalA
    * // Get first 10 Users
    * const users = await prisma.user.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+   * // Only select the `uuid`
+   * const userWithUuidOnly = await prisma.user.findMany({ select: { uuid: true } })
    * 
    */
   findMany<T extends UserFindManyArgs>(args?: Prisma.SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -900,6 +1080,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tokens<T extends Prisma.User$tokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -929,12 +1110,14 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the User model
  */
 export interface UserFieldRefs {
-  readonly id: Prisma.FieldRef<"User", 'Int'>
+  readonly uuid: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
-  readonly password: Prisma.FieldRef<"User", 'String'>
+  readonly payment: Prisma.FieldRef<"User", 'Float'>
+  readonly lastPayment: Prisma.FieldRef<"User", 'DateTime'>
+  readonly active: Prisma.FieldRef<"User", 'Boolean'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
 }
     
@@ -1305,6 +1488,30 @@ export type User$tokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.TokenScalarFieldEnum | Prisma.TokenScalarFieldEnum[]
+}
+
+/**
+ * User.payments
+ */
+export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

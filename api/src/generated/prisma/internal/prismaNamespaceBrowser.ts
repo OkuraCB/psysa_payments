@@ -52,7 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Token: 'Token',
-  User: 'User'
+  User: 'User',
+  Payment: 'Payment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -83,16 +84,28 @@ export type TokenScalarFieldEnum = (typeof TokenScalarFieldEnum)[keyof typeof To
 
 
 export const UserScalarFieldEnum = {
-  id: 'id',
+  uuid: 'uuid',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   name: 'name',
   email: 'email',
-  password: 'password',
+  payment: 'payment',
+  lastPayment: 'lastPayment',
+  active: 'active',
   role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  value: 'value',
+  status: 'status',
+  userId: 'userId'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -112,17 +125,25 @@ export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 export const TokenOrderByRelevanceFieldEnum = {
-  token: 'token'
+  token: 'token',
+  userId: 'userId'
 } as const
 
 export type TokenOrderByRelevanceFieldEnum = (typeof TokenOrderByRelevanceFieldEnum)[keyof typeof TokenOrderByRelevanceFieldEnum]
 
 
 export const UserOrderByRelevanceFieldEnum = {
+  uuid: 'uuid',
   name: 'name',
-  email: 'email',
-  password: 'password'
+  email: 'email'
 } as const
 
 export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+export const PaymentOrderByRelevanceFieldEnum = {
+  userId: 'userId'
+} as const
+
+export type PaymentOrderByRelevanceFieldEnum = (typeof PaymentOrderByRelevanceFieldEnum)[keyof typeof PaymentOrderByRelevanceFieldEnum]
 

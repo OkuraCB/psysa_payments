@@ -27,3 +27,8 @@ export type Token = Prisma.TokenModel
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
