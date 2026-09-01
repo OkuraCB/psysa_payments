@@ -18,6 +18,7 @@ CREATE TABLE `users` (
     `name` VARCHAR(100) NOT NULL,
     `email` VARCHAR(300) NOT NULL,
     `password` VARCHAR(300) NOT NULL,
+    `role` ENUM('USER', 'ADMIN') NOT NULL DEFAULT 'USER',
 
     UNIQUE INDEX `email_UNIQUE`(`email`),
     PRIMARY KEY (`id`)

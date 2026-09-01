@@ -5,13 +5,18 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
+import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from './auth/auth.module';
 import { LogModule } from './logs/log.module';
-import { LoggerMiddleware } from './middleware/logger.middleware';
 import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [AuthModule, UsersModule, LogModule],
+  imports: [
+    MulterModule.register({ dest: 'files' }),
+    AuthModule,
+    UsersModule,
+    LogModule,
+  ],
   controllers: [],
   providers: [
     { provide: APP_PIPE, useValue: new ValidationPipe({ transform: true }) },
@@ -19,6 +24,6 @@ import { UsersModule } from './users/users.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes();
+    // consumer.apply(LoggerMiddleware).forRoutes();
   }
 }
